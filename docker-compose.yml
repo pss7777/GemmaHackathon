@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  campus-oracle:
+    build: .
+    container_name: campus-oracle-app
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=google/gemma-2-2b-it
+      - EMBEDDING_MODEL_PATH=sentence-transformers/all-MiniLM-L6-v2
+      - HF_TOKEN=${HF_TOKEN:-} # Inherit from local shell if set
+    volumes:
+      - ./backend/data:/app/backend/data
+    restart: unless-stopped
